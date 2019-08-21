@@ -3,9 +3,14 @@
     using System;
     using System.Collections.Generic;
 
-    public class Course
+    using UniPortal.Data.Common.Models;
+
+    public class Course : UniPortalEntity
     {
-        public string Id { get; set; }
+        public Course()
+            : base()
+        {
+        }
 
         public string Name { get; set; }
 
