@@ -1,9 +1,9 @@
-﻿namespace UniPortal.Data.Common.Models
+﻿namespace UniPortal.Data.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    using UniPortal.Data.Common.Models.Contracts;
+    using UniPortal.Data.Models.Contracts;
 
     public abstract class UniPortalEntity : IIdentifiableEntity<string>, IAuditInfo
     {

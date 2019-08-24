@@ -1,8 +1,10 @@
 ﻿namespace UniPortal.Data.Models
 {
-    using System;
     using Microsoft.AspNetCore.Identity;
-    using UniPortal.Data.Common.Models.Contracts;
+
+    using System;
+
+    using UniPortal.Data.Models.Contracts;
 
     public class UniPortalUser : IdentityUser, IIdentifiableEntity<string>, IAuditInfo
     {

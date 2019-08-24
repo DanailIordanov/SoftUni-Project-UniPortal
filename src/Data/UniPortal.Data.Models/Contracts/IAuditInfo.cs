@@ -1,4 +1,4 @@
-﻿namespace UniPortal.Data.Common.Models.Contracts
+﻿namespace UniPortal.Data.Models.Contracts
 {
     using System;
 

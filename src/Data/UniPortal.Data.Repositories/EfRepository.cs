@@ -1,11 +1,13 @@
 ﻿namespace UniPortal.Data.Repositories
 {
     using Microsoft.EntityFrameworkCore;
+
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using UniPortal.Data.Common.Models;
-    using UniPortal.Data.Common.Repositories.Contracts;
+
+    using UniPortal.Data.Models;
+    using UniPortal.Data.Repositories.Contracts;
 
     public class EfRepository<TEntity> : IRepository<TEntity>
         where TEntity : UniPortalEntity

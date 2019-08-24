@@ -1,9 +1,10 @@
-﻿namespace UniPortal.Data.Common.Repositories.Contracts
+﻿namespace UniPortal.Data.Repositories.Contracts
 {
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using UniPortal.Data.Common.Models;
+
+    using UniPortal.Data.Models;
 
     public interface IRepository<TEntity> : IDisposable
         where TEntity : UniPortalEntity
