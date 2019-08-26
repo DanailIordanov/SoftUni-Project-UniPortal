@@ -5,11 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190820220010_AddTableCourses.cs" />
+    <Compile Remove="Migrations\20190820220010_AddTableCourses.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UniPortal.Data.Common\UniPortal.Data.Common.csproj" />
     <ProjectReference Include="..\UniPortal.Data.Models\UniPortal.Data.Models.csproj" />
   </ItemGroup>
 

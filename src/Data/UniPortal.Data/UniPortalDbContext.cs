@@ -12,9 +12,25 @@
         {
         }
 
+        public DbSet<Course> Courses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<StudentCourse>()
+                .HasKey(sc => new { sc.StudentId, sc.CourseId });
+
+            builder.Entity<StudentCourse>()
+                .HasOne(sc => sc.Student)
+                .WithMany(s => s.AttendedCourses)
+                .HasForeignKey(sc => sc.CourseId);
+
+            builder.Entity<StudentCourse>()
+                .HasOne(sc => sc.Course)
+                .WithMany(c => c.Students)
+                .HasForeignKey(sc => sc.CourseId);
+                
         }
     }
 }
