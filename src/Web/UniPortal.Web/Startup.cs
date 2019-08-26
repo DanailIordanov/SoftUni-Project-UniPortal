@@ -12,6 +12,12 @@
 
     using UniPortal.Data;
     using UniPortal.Data.Models;
+    using UniPortal.Data.Repositories;
+    using UniPortal.Data.Repositories.Contracts;
+    using UniPortal.Services.Data.Courses;
+    using UniPortal.Services.Data.Courses.Contracts;
+    using UniPortal.Services.Mapping;
+    using UniPortal.Web.ViewModels;
 
     public class Startup
     {
@@ -54,11 +60,19 @@
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //Data Repositories
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+
+            //Application services
+            services.AddTransient<ICoursesService, CoursesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            AutoMapperConfig.RegisterMappings(
+                typeof(ErrorViewModel).Assembly);
 
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {

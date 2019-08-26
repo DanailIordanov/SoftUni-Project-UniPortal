@@ -1,6 +1,4 @@
-using System;
-
-namespace UniPortal.Web.Models
+namespace UniPortal.Web.ViewModels
 {
     public class ErrorViewModel
     {

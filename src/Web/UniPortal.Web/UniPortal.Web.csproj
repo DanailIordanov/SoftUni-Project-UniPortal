@@ -15,6 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\UniPortal.Data\UniPortal.Data.csproj" />
+    <ProjectReference Include="..\..\Services\UniPortal.Services\UniPortal.Services.Data.csproj" />
+    <ProjectReference Include="..\UniPortal.Web.BindingModels\UniPortal.Web.BindingModels.csproj" />
+    <ProjectReference Include="..\UniPortal.Web.ViewModels\UniPortal.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
