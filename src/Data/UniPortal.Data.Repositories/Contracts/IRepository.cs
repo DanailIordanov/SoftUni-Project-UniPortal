@@ -4,10 +4,10 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using UniPortal.Data.Models;
+    using UniPortal.Data.Models.Contracts;
 
     public interface IRepository<TEntity> : IDisposable
-        where TEntity : UniPortalEntity
+        where TEntity : IIdentifiableEntity
     {
         IQueryable<TEntity> GetAll();
 
