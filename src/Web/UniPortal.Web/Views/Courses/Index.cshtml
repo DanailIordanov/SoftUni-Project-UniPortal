@@ -1,0 +1,42 @@
+﻿@model IEnumerable<IndexViewModel>
+
+@{
+    ViewData["Title"] = "Courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center mb-5">@ViewData["Title"]</h1>
+<hr />
+<div class="container-fluid">
+    @foreach (var course in Model)
+    {
+        <div class="card bg-light mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="@course.ImageUrl" class="card-img" alt="@course.Name">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs d-flex justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link active bg-primary text-light" asp-controller="Courses" asp-action="Join" asp-route-id="@course.Id">Join</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id">Learn more</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@course.Name</h5>
+                        <p class="card-text text-center">@course.HeadTeacherTitle @course.HeadTeacherFirstName @course.HeadTeacherLastName</p>
+                    </div>
+                    <div class="card-footer">
+                        <p class="card-text d-flex justify-content-end mt-1">
+                            <small class="text-muted">@@@course.Location, @course.Room</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

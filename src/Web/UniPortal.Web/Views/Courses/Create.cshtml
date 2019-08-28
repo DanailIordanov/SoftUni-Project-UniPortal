@@ -1,0 +1,94 @@
+﻿@model CreateBindingModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Create Course</h1>
+<hr />
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <form asp-action="Create" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="d-flex justify-content-center">
+                <div class="form-group w-100">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-between">
+                <div class="form-group col-6 mx-auto">
+                    <label asp-for="Aims" class="control-label"></label>
+                    <textarea asp-for="Aims" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Aims" class="text-danger"></span>
+                </div>
+                <div class="form-group col-6 mx-auto">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-between">
+                <div class="form-group col-6 mx-auto">
+                    <label asp-for="ImageUrl" class="control-label"></label>
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group col-6 mx-auto">
+                    <label asp-for="StartDate" class="control-label"></label>
+                    <input asp-for="StartDate" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-between">
+                <div class="form-group col-6 mx-auto">
+                    <label asp-for="Location" class="control-label"></label>
+                    <input asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+                <div class="form-group col-6 mx-auto">
+                    <label asp-for="Room" class="control-label"></label>
+                    <input asp-for="Room" class="form-control" />
+                    <span asp-validation-for="Room" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-between">
+                <div class="form-group col-6 mx-auto">
+                    <label asp-for="Language" class="control-label"></label>
+                    <input asp-for="Language" class="form-control" />
+                    <span asp-validation-for="Language" class="text-danger"></span>
+                </div>
+                <div class="form-group col-6 mx-auto">
+                    <label asp-for="ExamType" class="control-label"></label>
+                    <input asp-for="ExamType" class="form-control" />
+                    <span asp-validation-for="ExamType" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-between">
+                <div class="form-group col-6 mx-auto">
+                    <label asp-for="Requirements" class="control-label"></label>
+                    <input asp-for="Requirements" class="form-control" />
+                    <span asp-validation-for="Requirements" class="text-danger"></span>
+                </div>
+                <div class="form-group col-6 mx-auto">
+                    <label asp-for="Certificate" class="control-label"></label>
+                    <input asp-for="Certificate" class="form-control" />
+                    <span asp-validation-for="Certificate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group d-flex justify-content-center">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="text-right">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

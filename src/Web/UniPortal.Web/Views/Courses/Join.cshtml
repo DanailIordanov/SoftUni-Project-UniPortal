@@ -1,0 +1,33 @@
+﻿@model JoinViewModel
+@{
+    ViewData["Title"] = "Join";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center mb-2">Join @Model.Name Course</h1>
+<h4 class="text-right mb-5 text-muted">with @Model.HeadTeacherTitle @Model.HeadTeacherFirstName @Model.HeadTeacherLastName</h4>
+
+<div class="card bg-light mb-3">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="@Model.ImageUrl" class="card-img" alt="@Model.Name">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title text-center">@Model.Name</h5>
+                <div class="col-md-10 offset-md-1">
+                    <form asp-action="Join" class="form mx-auto mt-4">
+                        <div class="form-inline">
+                            <label asp-for="@Model.Password" class="control-label col-sm-2"></label>
+                            <input asp-for="@Model.Password" class="form-control col-sm-10" />
+                            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                        </div>
+                        <div class="d-flex justify-content-end mt-2">
+                            <input type="submit" value="Join" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
