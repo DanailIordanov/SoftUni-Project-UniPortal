@@ -10,7 +10,7 @@ using UniPortal.Data;
 namespace UniPortal.Data.Migrations
 {
     [DbContext(typeof(UniPortalDbContext))]
-    [Migration("20190820211945_InitialCreate")]
+    [Migration("20190826181451_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,6 +135,67 @@ namespace UniPortal.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("UniPortal.Data.Models.Course", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Aims")
+                        .IsRequired();
+
+                    b.Property<string>("Certificate");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("ExamType")
+                        .IsRequired();
+
+                    b.Property<string>("HeadTeacherId")
+                        .IsRequired();
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Language")
+                        .IsRequired();
+
+                    b.Property<string>("Location")
+                        .IsRequired();
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Requirements");
+
+                    b.Property<string>("Room")
+                        .IsRequired();
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HeadTeacherId");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("UniPortal.Data.Models.StudentCourse", b =>
+                {
+                    b.Property<string>("StudentId");
+
+                    b.Property<string>("CourseId");
+
+                    b.HasKey("StudentId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("StudentCourses");
+                });
+
             modelBuilder.Entity("UniPortal.Data.Models.UniPortalUser", b =>
                 {
                     b.Property<string>("Id")
@@ -142,21 +203,32 @@ namespace UniPortal.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address")
+                        .IsRequired();
+
+                    b.Property<int>("Age");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<DateTime>("CreatedOn");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<DateTime?>("ModifiedOn");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -235,6 +307,27 @@ namespace UniPortal.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("UniPortal.Data.Models.Course", b =>
+                {
+                    b.HasOne("UniPortal.Data.Models.UniPortalUser", "HeadTeacher")
+                        .WithMany("ToughtCourses")
+                        .HasForeignKey("HeadTeacherId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("UniPortal.Data.Models.StudentCourse", b =>
+                {
+                    b.HasOne("UniPortal.Data.Models.Course", "Course")
+                        .WithMany("Students")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("UniPortal.Data.Models.UniPortalUser", "Student")
+                        .WithMany("AttendedCourses")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

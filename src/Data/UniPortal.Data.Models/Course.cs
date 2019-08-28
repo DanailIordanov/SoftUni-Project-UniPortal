@@ -48,5 +48,7 @@
 
         public IList<StudentCourse> Students { get; set; }
 
+        public string Password { get; set; }
+
     }
 }

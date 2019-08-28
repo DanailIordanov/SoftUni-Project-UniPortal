@@ -14,6 +14,8 @@
 
         public DbSet<Course> Courses { get; set; }
 
+        public DbSet<StudentCourse> StudentCourses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -24,12 +26,14 @@
             builder.Entity<StudentCourse>()
                 .HasOne(sc => sc.Student)
                 .WithMany(s => s.AttendedCourses)
-                .HasForeignKey(sc => sc.CourseId);
+                .HasForeignKey(sc => sc.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<StudentCourse>()
                 .HasOne(sc => sc.Course)
                 .WithMany(c => c.Students)
-                .HasForeignKey(sc => sc.CourseId);
+                .HasForeignKey(sc => sc.CourseId)
+                .OnDelete(DeleteBehavior.Restrict);
                 
         }
     }
