@@ -16,7 +16,10 @@
     using UniPortal.Data.Repositories.Contracts;
     using UniPortal.Services.Data.Courses;
     using UniPortal.Services.Data.Courses.Contracts;
+    using UniPortal.Services.Data.Users;
+    using UniPortal.Services.Data.Users.Contracts;
     using UniPortal.Services.Mapping;
+    using UniPortal.Web.BindingModels.Courses;
     using UniPortal.Web.ViewModels;
 
     public class Startup
@@ -65,6 +68,7 @@
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             //Application services
+            services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICoursesService, CoursesService>();
         }
 
@@ -72,7 +76,8 @@
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(
-                typeof(ErrorViewModel).Assembly);
+                typeof(ErrorViewModel).Assembly,
+                typeof(CreateBindingModel).Assembly);
 
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {

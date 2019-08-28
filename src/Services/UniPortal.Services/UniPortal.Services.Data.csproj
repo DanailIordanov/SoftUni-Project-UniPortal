@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\UniPortal.Data.Repositories\UniPortal.Data.Repositories.csproj" />
+    <ProjectReference Include="..\UniPortal.Services.Mapping\UniPortal.Services.Mapping.csproj" />
+  </ItemGroup>
+
+</Project>
