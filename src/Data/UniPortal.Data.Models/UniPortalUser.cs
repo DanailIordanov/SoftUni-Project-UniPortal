@@ -31,6 +31,8 @@
         public IList<StudentCourse> AttendedCourses { get; set; }
 
         public IList<Course> ToughtCourses { get; set; }
+        
+        public IList<StudentSemester> Semesters { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
