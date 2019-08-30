@@ -16,6 +16,8 @@
     using UniPortal.Data.Repositories.Contracts;
     using UniPortal.Services.Data.Courses;
     using UniPortal.Services.Data.Courses.Contracts;
+    using UniPortal.Services.Data.Semesters;
+    using UniPortal.Services.Data.Semesters.Contracts;
     using UniPortal.Services.Data.Users;
     using UniPortal.Services.Data.Users.Contracts;
     using UniPortal.Services.Mapping;
@@ -70,6 +72,7 @@
             //Application services
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICoursesService, CoursesService>();
+            services.AddTransient<ISemestersService, SemestersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

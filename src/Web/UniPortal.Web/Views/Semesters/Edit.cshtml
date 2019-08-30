@@ -1,0 +1,60 @@
+﻿@model UniPortal.Web.BindingModels.Semesters.EditBindingModel
+@{
+    ViewData["Title"] = "Edit " + Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <form asp-action="Edit" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div style="display:none">
+                <input asp-for="Id" />
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="form-group col-4 mx-auto">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4 mx-auto">
+                    <label asp-for="StartDate" class="control-label"></label>
+                    <input asp-for="StartDate" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4 mx-auto">
+                    <label asp-for="EndDate" class="control-label"></label>
+                    <input asp-for="EndDate" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="form-group col-4 mx-auto">
+                    <label asp-for="Fee" class="control-label"></label>
+                    <input asp-for="Fee" class="form-control" />
+                    <span asp-validation-for="Fee" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4 mx-auto">
+                    <label asp-for="OpenFrom" class="control-label"></label>
+                    <input asp-for="OpenFrom" class="form-control" />
+                    <span asp-validation-for="OpenFrom" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4 mx-auto">
+                    <label asp-for="OpenUntil" class="control-label"></label>
+                    <input asp-for="OpenUntil" class="form-control" />
+                    <span asp-validation-for="OpenUntil" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group d-flex justify-content-center">
+                <a asp-action="Index" class="btn btn-primary">Back</a>
+                <input type="submit" value="Save Changes" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

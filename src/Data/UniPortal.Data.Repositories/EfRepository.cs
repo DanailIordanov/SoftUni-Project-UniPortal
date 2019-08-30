@@ -6,11 +6,11 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using UniPortal.Data.Models;
+    using UniPortal.Data.Models.Contracts;
     using UniPortal.Data.Repositories.Contracts;
 
     public class EfRepository<TEntity> : IRepository<TEntity>
-        where TEntity : UniPortalEntity
+        where TEntity : class, IIdentifiableEntity
     {
         private UniPortalDbContext dbContext;
         private DbSet<TEntity> dbSet;

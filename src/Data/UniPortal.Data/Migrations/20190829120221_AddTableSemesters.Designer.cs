@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniPortal.Data;
 
 namespace UniPortal.Data.Migrations
 {
     [DbContext(typeof(UniPortalDbContext))]
-    partial class UniPortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190829120221_AddTableSemesters")]
+    partial class AddTableSemesters
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,20 +194,22 @@ namespace UniPortal.Data.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<decimal?>("Fee");
+                    b.Property<decimal>("Fee");
 
                     b.Property<DateTime?>("ModifiedOn");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<DateTime?>("OpenFrom");
+                    b.Property<DateTime>("OpenFrom");
 
-                    b.Property<DateTime?>("OpenUntil");
+                    b.Property<DateTime>("OpenUntil");
 
                     b.Property<DateTime>("StartDate");
 
                     b.Property<bool>("isActive");
+
+                    b.Property<bool>("isOpen");
 
                     b.HasKey("Id");
 
@@ -230,6 +234,8 @@ namespace UniPortal.Data.Migrations
                     b.Property<string>("StudentId");
 
                     b.Property<string>("SemesterId");
+
+                    b.Property<decimal>("PaidAmount");
 
                     b.Property<DateTime>("PaidOn");
 

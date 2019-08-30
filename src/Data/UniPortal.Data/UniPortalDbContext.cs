@@ -16,6 +16,10 @@
 
         public DbSet<StudentCourse> StudentCourses { get; set; }
 
+        public DbSet<Semester> Semesters { get; set; }
+
+        public DbSet<StudentSemester> StudentSemesters { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -33,6 +37,21 @@
                 .HasOne(sc => sc.Course)
                 .WithMany(c => c.Students)
                 .HasForeignKey(sc => sc.CourseId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<StudentSemester>()
+                .HasKey(ss => new { ss.StudentId, ss.SemesterId });
+
+            builder.Entity<StudentSemester>()
+                .HasOne(ss => ss.Student)
+                .WithMany(s => s.Semesters)
+                .HasForeignKey(ss => ss.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<StudentSemester>()
+                .HasOne(ss => ss.Semester)
+                .WithMany(s => s.Students)
+                .HasForeignKey(ss => ss.SemesterId)
                 .OnDelete(DeleteBehavior.Restrict);
                 
         }
