@@ -16,6 +16,8 @@
     using UniPortal.Data.Repositories.Contracts;
     using UniPortal.Services.Data.Courses;
     using UniPortal.Services.Data.Courses.Contracts;
+    using UniPortal.Services.Data.Lectures;
+    using UniPortal.Services.Data.Lectures.Contracts;
     using UniPortal.Services.Data.Semesters;
     using UniPortal.Services.Data.Semesters.Contracts;
     using UniPortal.Services.Data.Users;
@@ -73,6 +75,7 @@
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICoursesService, CoursesService>();
             services.AddTransient<ISemestersService, SemestersService>();
+            services.AddTransient<ILecturesService, LecturesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,7 +94,7 @@
                     dbContext.Database.Migrate();
                 }
             }
-
+            
             // app.UseExceptionHandler("/Home/Error");
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
@@ -107,8 +110,13 @@
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "lectures",
+                    template: "Courses/{courseId}/{controller=Lectures}/{action=Index}/{lectureId?}");
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
             });
         }
     }

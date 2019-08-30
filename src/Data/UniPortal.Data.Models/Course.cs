@@ -23,7 +23,9 @@
         public string ImageUrl { get; set; }
 
         [Required]
-        public DateTime StartDate { get; set; }
+        public string SemesterId { get; set; }
+
+        public Semester Semester { get; set; }
 
         [Required]
         public string Location { get; set; }
@@ -41,6 +43,8 @@
 
         public string Certificate { get; set; }
 
+        public string Password { get; set; }
+
         [Required]
         public string HeadTeacherId { get; set; }
 
@@ -48,7 +52,7 @@
 
         public IList<StudentCourse> Students { get; set; }
 
-        public string Password { get; set; }
+        public IList<Lecture> Lectures { get; set; }
 
     }
 }
