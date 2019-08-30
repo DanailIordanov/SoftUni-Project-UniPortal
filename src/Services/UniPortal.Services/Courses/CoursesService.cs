@@ -12,21 +12,23 @@
 
     public class CoursesService : ICoursesService
     {
-        private IRepository<Course> repository;
+        private IRepository<Course> coursesRepository;
+        private IRepository<StudentCourse> studentCoursesRepository;
 
-        public CoursesService(IRepository<Course> repository)
+        public CoursesService(IRepository<Course> coursesRepository, IRepository<StudentCourse> studentCourses)
         {
-            this.repository = repository;
+            this.coursesRepository = coursesRepository;
+            this.studentCoursesRepository = studentCourses;
         }
 
         public async Task<IQueryable<Course>> GetAll()
         {
-            return this.repository.GetAll();
+            return this.coursesRepository.GetAll();
         }
 
         public async Task<Course> GetById(string id)
         {
-            return this.repository.GetById(id);
+            return this.coursesRepository.GetById(id);
         }
 
         public async Task<bool> Create<TBindingModel>(string userId, TBindingModel bindingModel)
@@ -37,9 +39,9 @@
                 course.HeadTeacherId = userId;
                 course.CreatedOn = DateTime.UtcNow;
 
-                await this.repository.AddAsync(course);
+                await this.coursesRepository.AddAsync(course);
 
-                await this.repository.SaveChangesAsync();
+                await this.coursesRepository.SaveChangesAsync();
 
                 return true;
             }
@@ -51,15 +53,41 @@
 
         public async Task<bool> Join(UniPortalUser user, string courseId)
         {
-            var course = this.repository.GetById(courseId);
+            var course = this.coursesRepository.GetById(courseId);
 
-            course.Students.Add(new StudentCourse
+            try
             {
-                StudentId = user.Id,
-                CourseId = courseId,
-            });
+                await studentCoursesRepository.AddAsync(new StudentCourse
+                {
+                    StudentId = user.Id,
+                    CourseId = courseId,
+                });
 
-            return true;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> Update<TBindingModel>(TBindingModel bindingModel)
+        {
+            try
+            {
+                var course = bindingModel.To<Course>();
+                course.ModifiedOn = DateTime.UtcNow;
+
+                this.coursesRepository.Update(course);
+
+                await this.coursesRepository.SaveChangesAsync();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

@@ -13,12 +13,6 @@
 
         public string ImageUrl { get; set; }
 
-        public DateTime StartDate { get; set; }
-
-        public string Location { get; set; }
-
-        public string Room { get; set; }
-
         public string HeadTeacherTitle { get; set; }
 
         public string HeadTeacherFirstName { get; set; }

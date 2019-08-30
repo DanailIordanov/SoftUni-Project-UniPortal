@@ -14,5 +14,7 @@
         Task<bool> Join(UniPortalUser user, string courseId);
 
         Task<Course> GetById(string courseId);
+
+        Task<bool> Update<TBindingModel>(TBindingModel bindingModel);
     }
 }

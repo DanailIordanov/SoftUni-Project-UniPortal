@@ -1,7 +1,6 @@
-﻿@model UniPortal.Web.BindingModels.Courses.CreateBindingModel
-
+﻿@model UniPortal.Web.BindingModels.Courses.EditBindingModel
 @{
-    ViewData["Title"] = "Create Course";
+    ViewData["Title"] = "Edit Course";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,8 +8,14 @@
 <hr />
 <div class="container-fluid">
     <div class="">
-        <form asp-action="Create" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3">
+        <form asp-action="Edit" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div style="display:none">
+                <input asp-for="Id" />
+            </div>
+            <div style="display:none">
+                <input asp-for="HeadTeacherId" />
+            </div>
             <div class="d-flex justify-content-center">
                 <div class="form-group w-50">
                     <label asp-for="Name" class="control-label"></label>
@@ -39,8 +44,8 @@
                 <div class="form-group col-6 mx-auto">
                     <label asp-for="SemesterId" class="control-label"></label>
                     <select asp-for="SemesterId" class="form-control mdb-select">
-                        <option value="" disabled selected>Choose semester</option>
-                        <vc:semesters-dropdown semester-id="null"></vc:semesters-dropdown>
+                        <option value="" disabled>Choose semester</option>
+                        <vc:semesters-dropdown semester-id="@Model.SemesterId"></vc:semesters-dropdown>
                     </select>
                     <span asp-validation-for="SemesterId" class="text-danger"></span>
                 </div>
@@ -83,7 +88,7 @@
             </div>
             <div class="form-group d-flex justify-content-center">
                 <a asp-action="Index" class="btn btn-primary">Back</a>
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" value="Edit" class="btn btn-success" />
             </div>
         </form>
     </div>
@@ -97,7 +102,3 @@
         $('.mdb-select').materialSelect();
     });
 </script>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

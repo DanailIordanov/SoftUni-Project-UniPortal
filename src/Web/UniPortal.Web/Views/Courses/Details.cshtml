@@ -11,7 +11,7 @@
     <div class="row mt-md-5">
         <div class="col-md-6">
             <div class="row my-3 mx-auto d-flex justify-content-center">
-                <p class="font-weight-bold">@Model.StartDate</p>
+                <p class="font-weight-bold">@Model.SemesterName</p>
             </div>
             <div class="row my-3 mx-auto">
                 <p>@@@Model.Location, Room @Model.Room</p>
@@ -52,4 +52,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="form-group mt-3 d-flex justify-content-end">
+    <a asp-controller="Courses" asp-action="Index" class="btn btn-sm btn-primary">Back to Courses</a>
 </div>

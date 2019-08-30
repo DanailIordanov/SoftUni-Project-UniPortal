@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MenuItemViewModel>
+
+@foreach (var menuItem in Model)
+{
+    if (menuItem.IsSelected)
+    {
+        <option value="@menuItem.Id" selected>@menuItem.Name</option>
+    }
+    else
+    {
+        <option value="@menuItem.Id">@menuItem.Name</option>
+    }
+}

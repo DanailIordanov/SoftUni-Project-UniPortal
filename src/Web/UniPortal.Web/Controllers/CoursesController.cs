@@ -26,14 +26,13 @@
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var courses = this.courses
-                .GetAll()
-                .GetAwaiter()
-                .GetResult()
+            var courses = await this.courses.GetAll();
+
+            var viewModels = courses
                 .To<IndexViewModel>()
                 .ToList();
 
-            return this.View(courses);
+            return this.View(viewModels);
         }
 
         [HttpGet]
@@ -65,12 +64,52 @@
         }
 
         [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            var courses = await this.courses.GetAll();
+
+            var viewModel = courses
+                .Where(c => c.Id == id)
+                .Include(c => c.Semester)
+                .FirstOrDefault()
+                .To<DetailsViewModel>();
+
+            return this.View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var course = await this.courses.GetById(id);
+
+            return this.View(course.To<EditBindingModel>());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditBindingModel bindingModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(bindingModel);
+            }
+
+            bool editIsSuccessful = await this.courses.Update(bindingModel);
+            if (!editIsSuccessful)
+            {
+                this.ModelState.AddModelError(string.Empty, "Something went wrong...");
+
+                return this.View(bindingModel);
+            }
+
+            return this.RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Join(string id)
         {
-            var viewModel = this.courses
-                .GetAll()
-                .GetAwaiter()
-                .GetResult()
+            var courses = await this.courses.GetAll();
+
+            var viewModel = courses
                 .Where(c => c.Id == id)
                 .Include(c => c.HeadTeacher)
                 .FirstOrDefault()
@@ -96,17 +135,6 @@
             await courses.Join(user, bindingModel.Id);
 
             return this.RedirectToAction("Index");
-        }
-
-        public async Task<IActionResult> Details(string id)
-        {
-            var viewModel = this.courses
-                .GetById(id)
-                .GetAwaiter()
-                .GetResult()
-                .To<DetailsViewModel>();
-
-            return this.View(viewModel);
         }
 
     }

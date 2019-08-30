@@ -14,7 +14,7 @@
 
         public string ImageUrl { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public string SemesterName { get; set; }
 
         public string Location { get; set; }
 
