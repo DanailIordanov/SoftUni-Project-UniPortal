@@ -18,17 +18,17 @@
     {
         foreach (var assignment in Model)
         {
-            <div class="card text-center">
+            <div class="card my-5 text-center">
                 <div class="card-header d-inline-flex">
                     <div class="col-lg-4 col-sm-6">
                         @assignment.Status.ToString()
                     </div>
                     <div class="col-lg-4">
-                        <div class="progress md-progress mt-2" style="height: 10px">
-                            <div class="progress-bar" role="progressbar" style="width: 25%; height: 10px" aria-valuenow="@((int)assignment.Status)" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress mt-2" style="height: 5px;">
+                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%;" aria-valuenow="@((int)assignment.Status)" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-sm-6">
+                    <div class="col-lg-4 col-xs-6">
                         Points: 0/@assignment.MaxPoints
                     </div>
                 </div>
@@ -51,8 +51,8 @@
     }
     else
     {
-        <div class="card my-4">
-            <div class="card-body text-center">There are currently no assignments for this course.</div>
+        <div class="card my-5 text-center">
+            <div class="card-body">There are currently no assignments for this course.</div>
         </div>
     }
 

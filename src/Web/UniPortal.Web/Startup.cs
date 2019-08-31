@@ -22,6 +22,8 @@
     using UniPortal.Services.Data.Lectures.Contracts;
     using UniPortal.Services.Data.Semesters;
     using UniPortal.Services.Data.Semesters.Contracts;
+    using UniPortal.Services.Data.Submissions;
+    using UniPortal.Services.Data.Submissions.Contracts;
     using UniPortal.Services.Data.Users;
     using UniPortal.Services.Data.Users.Contracts;
     using UniPortal.Services.Mapping;
@@ -79,6 +81,7 @@
             services.AddTransient<ISemestersService, SemestersService>();
             services.AddTransient<ILecturesService, LecturesService>();
             services.AddTransient<IAssignmentsService, AssignmentsService>();
+            services.AddTransient<ISubmissionsService, SubmissionsService>();
 
         }
 
@@ -114,7 +117,15 @@
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "courseNodes",
+                    name: "createSubmission",
+                    template: "Assignments/{assignmentId}/{controller=Submissions}/{action=Create}");
+
+                routes.MapRoute(
+                    name: "assignmentChildren",
+                    template: "Courses/{courseId}/Assignments/{assignmentId}/{controller}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "courseChildren",
                     template: "Courses/{courseId}/{controller}/{action=Index}/{id?}");
 
                 routes.MapRoute(

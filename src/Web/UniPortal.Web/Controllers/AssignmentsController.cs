@@ -27,7 +27,7 @@
 
             var viewModels = assignments
                 .Where(a => a.CourseId == courseId)
-                .Include(l => l.Course)
+                .Include(a => a.Course)
                 .To<AssignmentIndexViewModel>();
 
             return this.View(viewModels);
@@ -66,6 +66,8 @@
             var viewModel = assignments
                 .Where(a => a.Id == id)
                 .Include(a => a.Course)
+                .Include(a => a.Submissions)
+                .ThenInclude(s => s.Student)
                 .FirstOrDefault()
                 .To<AssignmentDetailsViewModel>();
 

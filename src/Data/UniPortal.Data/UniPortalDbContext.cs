@@ -26,10 +26,10 @@
 
         public DbSet<Assignment> Assignments { get; set; }
 
+        public DbSet<Submission> Submissions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
-
             builder.Entity<StudentCourse>()
                 .HasKey(sc => new { sc.StudentId, sc.CourseId });
 
@@ -63,7 +63,21 @@
             builder.Entity<Assignment>()
                 .Property(a => a.Status)
                 .HasConversion<string>();
-                
+
+            builder.Entity<Submission>()
+                .HasOne(s => s.Student)
+                .WithMany(st => st.Submissions)
+                .HasForeignKey(s => s.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Submission>()
+                .HasOne(s => s.Assignment)
+                .WithMany(a => a.Submissions)
+                .HasForeignKey(s => s.AssignmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            base.OnModelCreating(builder);
+
         }
     }
 }

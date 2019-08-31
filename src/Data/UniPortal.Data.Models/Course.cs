@@ -54,5 +54,7 @@
 
         public IList<Lecture> Lectures { get; set; }
 
+        public IList<Assignment> Assignments { get; set; }
+
     }
 }

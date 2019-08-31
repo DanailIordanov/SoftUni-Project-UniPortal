@@ -1,6 +1,7 @@
 ﻿namespace UniPortal.Data.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class Assignment : UniPortalEntity
@@ -21,7 +22,7 @@
         [Required]
         public int MaxPoints { get; set; }
 
-        // Submissions
+        public IList<Submission> Submissions { get; set; }
 
         [Required]
         public AssignmentStatus Status { get; set; }
