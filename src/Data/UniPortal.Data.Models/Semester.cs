@@ -30,7 +30,7 @@
 
         public IList<StudentSemester> Students { get; set; }
 
-        public bool isActive { get; set; }
+        public bool IsActive { get; set; }
 
         public IList<Course> Courses { get; set; }
 

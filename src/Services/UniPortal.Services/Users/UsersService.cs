@@ -20,5 +20,8 @@
         public Task<IdentityResult> AddToRoleAsync(UniPortalUser user, string role) => this.userManager.AddToRoleAsync(user, role);
 
         public UniPortalUser GetUser(string username) => this.userManager.Users.FirstOrDefault(u => u.UserName == username);
+
+        public async Task<IQueryable<UniPortalUser>> GetAll() => this.userManager.Users;
+
     }
 }
