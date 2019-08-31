@@ -14,6 +14,8 @@
     using UniPortal.Data.Models;
     using UniPortal.Data.Repositories;
     using UniPortal.Data.Repositories.Contracts;
+    using UniPortal.Services.Data.Assignments;
+    using UniPortal.Services.Data.Assignments.Contracts;
     using UniPortal.Services.Data.Courses;
     using UniPortal.Services.Data.Courses.Contracts;
     using UniPortal.Services.Data.Lectures;
@@ -76,6 +78,8 @@
             services.AddTransient<ICoursesService, CoursesService>();
             services.AddTransient<ISemestersService, SemestersService>();
             services.AddTransient<ILecturesService, LecturesService>();
+            services.AddTransient<IAssignmentsService, AssignmentsService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,8 +114,8 @@
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "lectures",
-                    template: "Courses/{courseId}/{controller=Lectures}/{action=Index}/{lectureId?}");
+                    name: "courseNodes",
+                    template: "Courses/{courseId}/{controller}/{action=Index}/{id?}");
 
                 routes.MapRoute(
                     name: "default",

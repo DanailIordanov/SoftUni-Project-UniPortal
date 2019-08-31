@@ -24,6 +24,8 @@
 
         public DbSet<Resource> Resources { get; set; }
 
+        public DbSet<Assignment> Assignments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -57,6 +59,10 @@
                 .WithMany(s => s.Students)
                 .HasForeignKey(ss => ss.SemesterId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Assignment>()
+                .Property(a => a.Status)
+                .HasConversion<string>();
                 
         }
     }
