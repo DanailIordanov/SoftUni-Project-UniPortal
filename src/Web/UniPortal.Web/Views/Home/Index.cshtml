@@ -3,6 +3,45 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to your University Portal</h1>
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Register</h4>
+                    <p class="card-text">In order to use the University Portal you must have an account. Haven't got one yet? No need to worry, click on the button below to create your own in just a few seconds.</p>
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Login</h4>
+                    <p class="card-text">Already have an account?<br />Go ahead and click on the button below to start managing your studies through the University Portal</p>
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Semesters</h4>
+                    <p class="card-text">Here you will find all active semesters and pending semester fees.</p>
+                    <a asp-area="Education" asp-controller="Semesters" asp-action="Index" class="btn btn-primary">See more</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Courses</h4>
+                    <p class="card-text">Whether you want to join different courses and learn new things or just browse through the courses that your university offers, just click on the link below!</p>
+                    <a asp-area="Education" asp-controller="Courses" asp-action="Index" class="btn btn-primary">See more</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

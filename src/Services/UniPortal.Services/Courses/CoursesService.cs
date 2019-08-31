@@ -63,6 +63,8 @@
                     CourseId = courseId,
                 });
 
+                await studentCoursesRepository.SaveChangesAsync();
+
                 return true;
             }
             catch
@@ -88,6 +90,25 @@
             {
                 return false;
             }
+        }
+
+        public async Task<bool> Delete(string id)
+        {
+            var course = this.coursesRepository.GetById(id);
+
+            this.coursesRepository.Delete(course);
+
+            try
+            {
+                await this.coursesRepository.SaveChangesAsync();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }

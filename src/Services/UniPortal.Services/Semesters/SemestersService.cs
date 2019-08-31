@@ -86,5 +86,40 @@
                 return false;
             }
         }
+
+        public async Task<bool> Activate(string semesterId)
+        {
+            this.semestersRepository.GetById(semesterId).IsActive = true;
+
+            try
+            {
+                await this.semestersRepository.SaveChangesAsync();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> Delete(string semesterId)
+        {
+            var semester = this.semestersRepository.GetById(semesterId);
+
+            this.semestersRepository.Delete(semester);
+
+            try
+            {
+                await this.semestersRepository.SaveChangesAsync();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
     }
 }

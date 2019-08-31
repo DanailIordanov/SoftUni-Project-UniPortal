@@ -1,0 +1,89 @@
+﻿@model AssignmentDetailsViewModel
+@{
+    ViewData["Title"] = Model.Name + " Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center m-auto text-uppercase text-primary py-5 px-3">@ViewData["Title"]</h1>
+
+<hr class="mb-3">
+<div class="container-fluid mt-3">
+    <div class="card text-center">
+        <div class="card-header d-inline-flex">
+            @*<div class="col-lg-4 col-sm-6">
+                @Model.Status.ToString()
+            </div>
+            <div class="col-lg-4">
+                <div class="progress mt-2" style="height: 5px;">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: @((int)Model.Status)%; height: 10px" aria-valuenow="@((int)Model.Status)" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>*@
+            <div class="col-lg-4 col-sm-6">
+                Max Points: @Model.MaxPoints
+            </div>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">@Model.Description</p>
+
+            <div class="row mt-5 mb-2">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card w-100 d-inline-flex">
+                        @if (TempData.ContainsKey("error"))
+                        {
+                            <div class="card-header danger-color text-white">
+                                <p class="card-title mt-2">@TempData["error"]</p>
+                            </div>
+                        }
+                        @if (TempData.ContainsKey("success"))
+                        {
+                            <div class="card-header success-color text-white">
+                                <p class="card-title mt-2">@TempData["success"]</p>
+                            </div>
+                        }
+                        <div class="card-body px-lg-5 pt-0">
+                            <vc:submission-create-form assignment-id="@Model.Id"></vc:submission-create-form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <p class="card-text text-muted">Deadline: @Model.Deadline</p>
+        </div>
+    </div>
+
+    @if (Model.Submissions.Any())
+    {
+        foreach (var submission in Model.Submissions)
+        {
+            <div class="card my-5">
+                <div class="card-header d-flex justify-content-between">
+                    <p class="pt-2 mb-0"><strong>@submission.StudentTitle @submission.StudentFirstName @submission.StudentLastName</strong> submitted on @submission.CreatedOn</p>
+                </div>
+                <div class="card-body d-inline-flex justify-content-between">
+                    <div class="my-auto">
+                        <h5 class="card-title">@submission.Name</h5>
+                        <p class="card-text text-center">@submission.Comment</p>
+                    </div>
+                    <div class="my-auto">
+                        <a href="@submission.Url"><i class="fas fa-file-download fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="card my-5">
+            <div class="card-body">
+                <p class="card-text text-center">You have not submitted anything to this assignment.</p>
+            </div>
+        </div>
+    }
+
+    <div class="form-group mt-3 d-flex justify-content-end">
+        <a href="javascript:history.go(-1)" class="btn btn-sm btn-primary">Back to Assignments</a>
+    </div>
+</div>

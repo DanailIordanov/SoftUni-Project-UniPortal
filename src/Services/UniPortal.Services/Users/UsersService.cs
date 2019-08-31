@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Identity;
 
     using System.Linq;
+    using System.Threading.Tasks;
 
     using UniPortal.Data.Models;
     using UniPortal.Services.Data.Users.Contracts;
@@ -16,6 +17,8 @@
             this.userManager = userManager;
         }
 
-        public UniPortalUser GetUser(string username) => userManager.Users.FirstOrDefault(u => u.UserName == username);
+        public Task<IdentityResult> AddToRoleAsync(UniPortalUser user, string role) => this.userManager.AddToRoleAsync(user, role);
+
+        public UniPortalUser GetUser(string username) => this.userManager.Users.FirstOrDefault(u => u.UserName == username);
     }
 }

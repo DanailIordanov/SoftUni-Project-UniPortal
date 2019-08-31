@@ -14,6 +14,7 @@
     using UniPortal.Data.Models;
     using UniPortal.Data.Repositories;
     using UniPortal.Data.Repositories.Contracts;
+    using UniPortal.Data.Seeding;
     using UniPortal.Services.Data.Assignments;
     using UniPortal.Services.Data.Assignments.Contracts;
     using UniPortal.Services.Data.Courses;
@@ -53,8 +54,9 @@
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<UniPortalUser>()
+            services.AddIdentity<UniPortalUser, IdentityRole>()
                 .AddEntityFrameworkStores<UniPortalDbContext>()
+                .AddDefaultTokenProviders()
                 .AddDefaultUI(UIFramework.Bootstrap4);
 
             services.Configure<IdentityOptions>(options =>
@@ -71,6 +73,8 @@
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
 
             //Data Repositories
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -90,7 +94,7 @@
         {
             AutoMapperConfig.RegisterMappings(
                 typeof(ErrorViewModel).Assembly,
-                typeof(CreateBindingModel).Assembly);
+                typeof(CourseCreateBindingModel).Assembly);
 
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
@@ -100,8 +104,10 @@
                 {
                     dbContext.Database.Migrate();
                 }
+
+                new UniPortalDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
-            
+
             // app.UseExceptionHandler("/Home/Error");
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
@@ -118,19 +124,28 @@
             {
                 routes.MapRoute(
                     name: "createSubmission",
-                    template: "Assignments/{assignmentId}/{controller=Submissions}/{action=Create}");
+                    template: "{area:exists}/Assignments/{assignmentId}/{controller=Submissions}/{action=Create}"
+                );
 
                 routes.MapRoute(
                     name: "assignmentChildren",
-                    template: "Courses/{courseId}/Assignments/{assignmentId}/{controller}/{action=Index}/{id?}");
+                    template: "{area:exists}/Courses/{courseId}/Assignments/{assignmentId}/{controller}/{action=Index}/{id?}"
+                );
 
                 routes.MapRoute(
                     name: "courseChildren",
-                    template: "Courses/{courseId}/{controller}/{action=Index}/{id?}");
+                    template: "{area:exists}/Courses/{courseId}/{controller}/{action=Index}/{id?}"
+                );
+
+                routes.MapRoute(
+                    name: "areas",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                );
 
             });
         }

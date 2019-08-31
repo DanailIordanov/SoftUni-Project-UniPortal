@@ -1,0 +1,92 @@
+﻿@model IEnumerable<CourseIndexViewModel>
+
+@{
+    ViewData["Title"] = "Courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center m-auto text-uppercase text-primary py-5 px-3">@ViewData["Title"]</h1>
+
+<div class="table-add d-flex justify-content-end mb-3 mr-3">
+    <a asp-area="Internal" asp-controller="Courses" asp-action="Create" class="text-success">
+        <i class="fas fa-plus fa-2x" aria-hidden="true"></i>
+    </a>
+</div>
+
+<hr class="mb-3">
+<div class="container-fluid">
+
+    @if (Model.Any())
+    {
+        @foreach (var course in Model)
+        {
+            <div class="card my-4">
+                <div class="row no-gutters">
+                    <div class="col-md-4 view overlay zoom">
+                        <img width="320" height="201" src="@course.ImageUrl" class="card-img" alt="@course.Name">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-header d-flex">
+                            <div class="d-inline-flex flex-grow-1">
+                                <div class="mr-auto my-auto">
+                                    <a class="text-muted" asp-action="Details" asp-route-id="@course.Id">Learn more</a>
+                                </div>
+                            </div>
+                            <ul class="nav nav-tabs card-header-tabs">
+                                @if (course.Students.Any(s => s.StudentUsername == User.Identity.Name))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active bg-danger text-light text-center" href="/Education/Courses/@course.Id/Lectures">Lectures</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active bg-warning text-light text-center" href="/Education/Courses/@course.Id/Assignments">Assignments</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active bg-primary text-light text-center" asp-action="Join" asp-route-id="@course.Id">Join</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">@course.Name</h5>
+                            <p class="card-text text-center">@course.HeadTeacherTitle @course.HeadTeacherFirstName @course.HeadTeacherLastName</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-4">
+                                    <small class="text-muted">Grade: </small>
+                                </div>
+                                <div class="col-4 text-center">
+                                    @if (User.IsInRole("Teacher") && User.Identity.Name == course.HeadTeacherUsername || User.IsInRole("Administration"))
+                                    {
+                                        <a asp-area="Internal" asp-controller="Courses" asp-action="Edit" asp-route-id="@course.Id" class="text-warning">
+                                            <i class="fas fa-edit fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                        <a asp-area="Internal" asp-controller="Courses" asp-action="Delete" asp-route-id="@course.Id" asp-route-returnUrl="@Context.Request.Path" class="text-danger">
+                                            <i class="fas fa-trash-alt fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                    }
+                                </div>
+                                <div class="col-4 text-right">
+                                    <small class="text-muted">@@@course.Location, @course.Room</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="card my-4">
+            <div class="card-body text-center">There are currently no available courses.</div>
+        </div>
+    }
+    <div class="form-group mt-3 d-flex justify-content-end">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-primary">Back to Home</a>
+    </div>
+</div>

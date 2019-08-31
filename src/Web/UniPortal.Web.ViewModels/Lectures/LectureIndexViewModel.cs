@@ -3,7 +3,7 @@
     using UniPortal.Data.Models;
     using UniPortal.Services.Mapping.Contracts;
 
-    public class LectureIndexViewModel : IMapFrom<Lecture>, IMapTo<Lecture>
+    public class LectureIndexViewModel : IMapFrom<Lecture>
     {
         public string Id { get; set; }
 

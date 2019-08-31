@@ -1,6 +1,7 @@
 ﻿namespace UniPortal.Web.ViewModels.Submissions
 {
     using System;
+
     using UniPortal.Data.Models;
     using UniPortal.Services.Mapping.Contracts;
 

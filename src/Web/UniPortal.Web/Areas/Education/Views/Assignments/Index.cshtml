@@ -1,0 +1,62 @@
+﻿@model CourseAssignmentIndexViewModel
+@{
+    ViewData["Title"] = "Assignments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center m-auto text-uppercase text-primary py-5 px-3">@ViewData["Title"]</h1>
+
+<div class="table-add d-flex justify-content-end mb-3 mr-3">
+    <a href="/Internal/Courses/@Model.Id/Assignments/Create" class="text-success">
+        <i class="fas fa-plus fa-2x" aria-hidden="true"></i>
+    </a>
+</div>
+
+<hr class="mb-3">
+<div class="container-fluid mt-3">
+    @if (Model.Assignments.Any())
+    {
+        foreach (var assignment in Model.Assignments)
+        {
+            <div class="card my-5 text-center">
+                <div class="card-header d-inline-flex justify-content-center">
+                    @*<div class="col-lg-4 col-sm-6">
+                        @assignment.Status.ToString()
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="progress mt-2" style="height: 5px;">
+                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%;" aria-valuenow="@((int)assignment.Status)" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>*@
+                    <div class="col-lg-4 col-xs-6">
+                        Max Points: @assignment.MaxPoints
+                    </div>
+                </div>
+                <div class="card-body row">
+                    <div class="col-md-8 my-auto">
+                        <h5 class="card-title">@assignment.Name</h5>
+
+                    </div>
+                    <div class="col-md-4">
+                        <a href="Assignments/Details/@assignment.Id" class="btn btn-primary">Show more <i class="fas fa-angle-double-right"></i></a>
+
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    Deadline: @assignment.Deadline
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="card my-5 text-center">
+            <div class="card-body">There are currently no assignments for this course.</div>
+        </div>
+    }
+
+    <div class="form-group mt-3 d-flex justify-content-end">
+        <a asp-controller="Courses" asp-action="Index" class="btn btn-sm btn-primary">Back to Courses</a>
+    </div>
+</div>
+

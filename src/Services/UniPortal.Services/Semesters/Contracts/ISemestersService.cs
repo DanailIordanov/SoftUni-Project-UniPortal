@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using UniPortal.Data.Models;
 
     public interface ISemestersService
@@ -15,6 +16,10 @@
         Task<bool> Update<TBindingModel>(TBindingModel model);
 
         Task<bool> AddUserTo(string id, UniPortalUser user);
+
+        Task<bool> Activate(string id);
+
+        Task<bool> Delete(string id);
 
     }
 }

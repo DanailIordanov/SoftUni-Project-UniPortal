@@ -1,6 +1,7 @@
 ﻿namespace UniPortal.Web.BindingModels.Submissions
 {
     using System.ComponentModel.DataAnnotations;
+
     using UniPortal.Data.Models;
     using UniPortal.Services.Mapping.Contracts;
 

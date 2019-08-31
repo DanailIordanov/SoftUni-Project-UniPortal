@@ -16,5 +16,7 @@
         Task<Course> GetById(string courseId);
 
         Task<bool> Update<TBindingModel>(TBindingModel bindingModel);
+
+        Task<bool> Delete(string id);
     }
 }
